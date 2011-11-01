@@ -1,0 +1,11 @@
+# Changes
+
+0.4:
+
+15 Aug 2010:
+* kannel options now have default settings specified in environment.rb, these can all be overridden by specifying new values in the org settings gateway config
+* exception notifier using gmail to send exception messages (any smtp can be configured)
+
+14 Aug 2010
++ can now stop, update the conf files and start kannel with capistrano
+* fixed error which occurred when sending confirmation code

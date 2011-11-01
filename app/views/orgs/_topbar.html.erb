@@ -1,0 +1,25 @@
+<div class="topbar">
+<% if @org %>
+  <%= link_to_unless_current(h(@org.name), :controller=>'orgs', :action=>'show')%> |
+  <%= link_to_with_back("Send Page", :controller=>'msgs', :action=>'address') %> |
+  <% if !(@user && @user.registered?) %>
+	  <%= link_to_unless_current("Login", :controller=>'users', :action=>'login') %> |   
+  <% end %>
+  <% if @user && @user.admin? %>
+	<%= link_to("Users", :controller=>'members', :action=>'browse') %> |   
+	<%= link_to("Groups", :controller=>'groups', :action=>'browse') %> | 
+    <%= link_to("All Messages", :controller=>'msgs', :action=>'browse') %> |
+	<%= link_to_unless_current("Org Settings", :controller=>'orgs', :action=>'edit')%> |
+  <% end %>
+  <% if @user && @user.registered? %>
+	  <%= link_to_unless_current("My Settings", :controller=>'members', :action=>'show', :id=>@user)%> |
+  <% end %>
+<% end %>
+  <%= link_to_unless_current("Help", :controller=>'public', :action=>'help')%>
+</div>
+<% if @org && @user && @user.registered? %>
+  	You are logged in as <%= link_to(h(@user.login_name), :controller=>'members', :action=>'show', :id=>@user)%> 
+    (<%= h(@user.name)%>)
+    | 
+	  <%= link_to_unless_current("Logout", :controller=>'users', :action=>'logout') %>	
+  <% end %>  

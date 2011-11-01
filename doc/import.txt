@@ -1,0 +1,8 @@
+# how to import files into the system
+
+# importing user files
+# columns required: username,full name,phone
+# optional:
+#   password: will autogenerate if not specified
+# NOT case sensitive
+

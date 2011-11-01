@@ -1,0 +1,12 @@
+<% set_page_title( "New Group" ) %>
+
+<h1>New Group for <%= h(@org.name) %></h1>
+
+<%= error_messages_for 'group' %>
+
+<fieldset>
+  <% form_for :group, :url  => {:controller=>'groups', :action => 'create', :back => @back} do |form| -%>
+    <%= render :partial => "form", :object => form %>
+    <%= submit_tag "Save" %> <%= cancel_link %>
+  <% end -%>
+</fieldset>

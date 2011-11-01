@@ -1,0 +1,10 @@
+<table class="status_list">
+<% msg.pages.each do |page| %>
+  <tr>
+    <td><%= h(page.user.name) %> </td>
+    <td><%= h(page.user.phone) %> </td>
+    <td><%= display_sms_status(page.status) %> </td>
+    <td><%= h(page.status_string) %> </td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  phone: 16175551111
+  text: test
+  backend: one
+  status: <%= STATUS_DELIVERED %>
+  status_string: succeeded
+  page: page_to_joe

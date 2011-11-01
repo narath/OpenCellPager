@@ -1,0 +1,61 @@
+# Guide to debugging the Open Cell Pager
+
+## Problem: pages being sent to kannel backend but not sending them out
+
+Possible problems:
+1.	cell modem not responding
+2.	out of minutes
+
+# Make sure you can access the server
+ssho
+http://41.221.60.25/
+
+# check the kannel logs
+sudo tail -f /tmp/kannel.log /tmp/smsbox.log /tmp/modem.log /tmp/access.log
+
+# if you dont see any abnormalities here then
+# shut down kannel
+sudo /etc/init.d/kannel stop
+ps ax | grep kannel
+# access the modem yourself
+sudo screen /dev/ttyS0
+Ctrl-a k to quit
+
+AT
+should return ok
+
+ATE1
+turns echo on so you can see what you are typing
+
+# if you cannot communicate with the modem then you will need to reboot
+sudo shutdown -r now
+
+check_after_startup
+
+# see if this works now
+see screen above
+
+# if not -> will need to restart modem
+
+# end
+
+
+check_after_startup::
+
+# check to see if the tty port was recognized
+dmesg | grep tty
+
+# check to see if kannel is running
+ps ax | grep kannel
+
+::
+
+# how to send a message without loading up the website
+RAILS_ENV=production ruby script/console
+Org.first.send_msg(from,to,text)
+
+# Test server overheating
+# install heat sensors
+sudo apt-get install sensors-applet
+
+

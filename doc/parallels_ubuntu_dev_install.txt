@@ -1,0 +1,119 @@
+################
+
+
+# following http://www.hackido.com/2009/11/install-ruby-on-rails-on-ubuntu-karmic.html
+
+sudo apt-get update
+sudo apt-get dist-upgrade
+sudo apt-get install build-essential
+sudo apt-get install ruby ri rdoc mysql-server libmysql-ruby ruby1.8-dev irb1.8 libdbd-mysql-perl libdbi-perl libmysql-ruby1.8 libmysqlclient15off libnet-daemon-perl libplrpc-perl libreadline-ruby1.8 libruby1.8 mysql-client-5.1 mysql-common mysql-server-5.1 rdoc1.8 ri1.8 ruby1.8 irb libopenssl-ruby libopenssl-ruby1.8 libhtml-template-perl mysql-server-core-5.1 libmysqlclient16 libreadline5 psmisc
+
+#
+# rubygems 1.3.5
+#
+mkdir installs
+cd installs
+wget http://rubyforge.org/frs/download.php/60718/rubygems-1.3.5.tgz
+tar xvzf rubygems-1.3.5.tgz
+cd rubygems-1.3.5
+sudo ruby setup.rb
+sudo ln -s /usr/bin/gem1.8 /usr/bin/gem
+cd ~/
+
+#
+# rails 2.3.5
+#
+sudo gem install rails --no-rdoc --no-ri
+
+# git 1.6.3.3
+sudo apt-get install git-core
+
+#
+# mysql gem
+#
+
+sudo apt-get install libmysqlclient-dev
+sudo gem install mysql --no-rdoc --no-ri
+
+
+#
+# dev db
+#
+
+sudo mysqladmin create ocp_development -u root
+
+
+#
+# shared directory
+#
+
+
+cd /media/psf/lifeline/
+cd /media/psf/lifeline/log
+cd /media/psf/lifeline/tasks
+
+
+#
+# Install Rubymine
+#
+# Install JDK first
+sudo apt-get install sun-java6-bin sun-java6-jre sun-java6-jdk
+
+
+#Download RubyMine http://www.jetbrains.com/ruby/download/index.html
+cd ~
+mkdir dev_src
+tar xzvf rubymine
+sudo mv rubymine93.95 /opt
+
+cd /opt/rubymine93.95/bin
+# add JDK to path
+# http://www.jetbrains.net/devnet/thread/281602
+nano rubymine.sh
+# add this line
+export JDK_HOME=/usr/lib/jvm/java-6-sun
+
+# now rubymine this to /usr/local/bin
+cd /usr/local/bin
+sudo nano rubymine
+# add this to the file
+cd /opt/rubymine93.95/bin
+exec ./rubymine.sh
+# make exec
+sudo chmod a+x rubymine
+
+# now run from anywhere
+
+# add SSH key to git
+mkdir .ssh
+chmod g-w .ssh
+# create a public key for the server (for git)
+ssh-keygen -t dsa
+
+# go to githup (https://github.com/account) and add key to toliwaga account to permit access from this server
+# need to add the SSH public key from server ~/.ssh
+#  (don't think title matters)
+
+sudo apt-get install putty
+
+cd ~
+mkdir dev
+cd dev
+mkdir ocp
+cd ocp
+
+git init
+git remote add origin git@github.com:narath/lifeline.git
+sudo gem sources -a http://gems.github.com
+git pull origin master
+
+
+# setup rubygsm for development
+# first get ruby-serialport
+sudo gem install ruby-serialport
+
+cd ~/dev
+git clone http://github.com/jeffrafter/rubygsm.git
+
+
+

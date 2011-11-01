@@ -1,0 +1,14 @@
+
+<p>
+<%= link_to "monitor", :controller => "admin", :action=>"monitor" %> |  
+<%= link_to "rails log",  :controller => "admin",:action => "show_rails_log" %> |
+<%= link_to "event log",  :controller => "admin",:action => "show_event_log" %> |
+<%= link_to "disk",  :controller => "admin",:action => "show_usage" %> |
+(kannel only) >>
+<%= link_to "kannel log",  :controller => "admin",:action => "show_kannel_log" %> |
+<%= link_to "modem log",  :controller => "admin",:action => "show_modem_log" %> |
+<%= link_to "smsbox log",  :controller => "admin",:action => "show_smsbox_log" %> |
+<%= link_to "kannel admin", :controller => 'admin', :action => 'kannel_admin' %>
+</p>
+
+<h1><%=h @header %> </h1>

@@ -1,0 +1,30 @@
+<h1>Listing backends</h1>
+
+<table border="1">
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Config</th>
+    <th>Balance</th>
+    <th>Total sent</th>
+    <th>Total received</th>
+  </tr>
+
+<% @backends.each do |backend| %>
+  <tr>
+    <td><%=h backend.name %></td>
+    <td><%=h backend.backend_type %></td>
+    <td><%=h backend.config %></td>
+    <td><%=h backend.balance %></td>
+    <td><%=h backend.total_sent %></td>
+    <td><%=h backend.total_received %></td>
+    <td><%= link_to 'Show', backend %></td>
+    <td><%= link_to 'Edit', edit_backend_path(backend) %></td>
+    <td><%= link_to 'Destroy', backend, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New backend', new_backend_path %>

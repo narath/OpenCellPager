@@ -1,0 +1,20 @@
+<div class="home_wrap">
+  
+  <div class="home_note">
+      <p>Your ip address is: <%= request.remote_ip %></p>
+      <p> You are not currently using a computer recognized as being in the hospital network.</p>
+  </div>
+
+  <div class="home_block">
+    <p>
+        In order to send pages, you will need to either: 
+        <BR>
+        (1) use a computer in the hospital, or 
+        <BR>
+        (2) <%= link_to("Login", :controller=>'users', :action=>'login') %> with your username and password.
+    </p>
+  </div>
+
+</div>
+
+ 

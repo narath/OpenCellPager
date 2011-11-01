@@ -1,0 +1,6 @@
+<%= render :partial=>"menu" %>
+
+<ul>
+    <li><%= link_to "Status", :controller=>'admin', :action=>'kannel_cmd', :cmd =>"status"  %></li>
+    <li><%= link_to "Restart",  {:controller =>'admin', :action=>'kannel_cmd', :cmd =>"restart"}, :confirm => "Are you sure you want to restart the kannel server. Paging will be disable while it restarts" %></li>
+</ul>

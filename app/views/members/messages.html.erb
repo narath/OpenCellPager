@@ -1,0 +1,7 @@
+<% set_page_title( "Browse Messages Addressed to User" ) %>
+
+<h2><%= pluralize(@member.msgs.count, "Message") %></h2>
+
+<p class='hint'>Pages addressed to you may have been forwarded to another user.</p>
+
+<%= render :partial => "msgs/show_list", :locals => {:msgs=>@msgs} %>

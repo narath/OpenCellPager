@@ -1,0 +1,28 @@
+<% set_page_title( h(@group.name) ) %>
+
+<h1>Group: <%= h(@group.name) %></h1>
+
+<% if @user.admin? %>
+  <fieldset>
+    <%= link_to_with_back "edit group settings", :controller=>'groups', :action=>'edit', :id=>@group.id%>
+  </fieldset>
+<% end %>
+
+<h2><%= pluralize(@group.users.count, "User") %></h2>
+
+<% if @user.admin? %>
+<%= render(:partial => 'groups/add_member', :locals=>{:group=>@group}) %>
+<% end %>
+
+<table class="explore_list">
+<% @group.users.each do |user| %>
+  <tr>
+    <td><%= link_to( h(user.name), :controller=>'members', :action=>'show', :id=>user ) %> </td>
+    <td><%= user.sms_validated? ? "OK" : "<span class='red'>X</span>" %> </td>
+    <% if @user.admin? %>
+      <td> <%= link_to_with_back("remove from group", :controller=>'members', :action=>'drop_from_group', :id=>user, :group_id=>@group.id) %> </td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+

@@ -1,0 +1,59 @@
+This is a quick cheat sheet for getting to know the open cell pager system.
+
+# test server address
+http://192.168.1.201
+admin psych333
+
+# check modem status
+http://192.168.1.201:13000/status
+http://192.168.1.201:13000/store-status
+http://192.168.1.201:13000/restart?password=PASSWORD
+
+# check that the process is running
+ps ax | grep kannel
+
+# log files
+cap logs:watch --set-before ocp_server="blue"
+
+# see debug.txt for troubleshooting help
+
+# to send a message manually
+# 1. shut down kannel
+# 2. log into the modem
+# 3. Modem ready?
+# 4. Basic modem diagnostics
+# 5. Now send
+
+sudo /etc/init.d/kannel stop
+ps ax | grep kannel
+
+sudo screen /dev/ttyS0
+Ctrl-a k to quit
+
+AT
+should return ok
+
+ATE1
+turns echo on so you can see what you are typing
+
+ATI0	Info about yourself
+
+AT+WMBS? change the band
+# in tanzania: we want 5 (GSM 900/1800 MHz.)
+AT+WMBS=5
+# in north america: 4 (850/1900)
+# Where these bands were already allocated, the 850 MHz and 1900 MHz bands were used instead (for example in Canada and the United States)
+AT+WMBS=4
+
+AT+CSQ	check signal strength
+31 is best
+
+## Sending Messages
+at+cmgf=1 (set to text mode)
+OK
+
+at+cmgs="6175104446" (send message to the number specified in quotes)
+> TEST message ONE. ( Type message after the > symbol and hit <CTRL + Z> to send the message)
++CMGS: 52
+OK
+

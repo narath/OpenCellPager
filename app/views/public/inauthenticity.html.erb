@@ -1,0 +1,9 @@
+<h1>Oops!</h1>
+<div id="warning">
+    That request is not valid.
+    <% if !@user.registered? %>
+      Your session may have expired due to prolonged inactivity. <br/><br/>
+      Or perhaps you have more than one browser window open and you signed out behind the scenes while you had the form open?
+      (Even if you have more than one browser window open, you can still only have one active session.)<br/>
+   <% end %>
+</div>

@@ -1,0 +1,74 @@
+<% set_page_title( "Message" ) %>
+
+<h1>Send Message</h1>
+
+<div class='textframe'>
+  <table class='display_list'>
+    <tr>
+      <td>To:</td>
+      <td> <%= h(@msg.recipient_type) %> <%= h(@msg.recipient.name) %></td>
+    </tr>
+    <tr>
+      <td>From:</td>
+      <td> <%= h(@msg.from) %></td>
+    </tr>
+    <tr>
+      <td>Date:</td>
+      <td> <%= display_date(@msg.created_at) %> </td>
+    </tr>
+    <tr>
+      <td>Message:</td>
+      <td> <%= h(@msg.body) %> </td>
+    </tr>
+  </table>
+
+</div>
+<div class='textframe'>
+  <p>Message Status: <span id="msg_status"><%= display_sms_status(@msg.status) %></span>
+    <img id="spinner" src="/images/loader2.gif" style="display: none;"/>
+  </p>
+  <%= render :partial => "msgs/show", :locals => {:msg=>@msg} %>
+  <BR>
+
+  <p class='hint'>Please note: a delivered message has not necessarily been read by the recipient.</p>
+</div>
+<%= link_to( "Refresh", :controller=>'msgs', :action=>'show', :id=>@msg, :back=>@back) %> |
+<%= link_to( "Send another", :controller=>'msgs', :action=>'address', :back=>@back) %>
+
+<% if @msg.status==STATUS_PENDING %>
+<script type="text/javascript">
+    var pe = null;
+    var dots = "";
+    var working = true;
+
+    function on_success(transport) {
+        // update the msg text
+        dots += "."
+        $('msg_status').update(transport.responseText + dots)
+        // returns 1 if status complete
+        if (transport.responseText.match(/1|true/) || dots.length > 5) {
+            working = false
+            document.getElementById('spinner').style.display = 'none'
+            if (pe) {
+                pe.stop
+
+            }
+        }
+    }
+    function update_status(pe) {
+        if (!working) {
+            pe.stop
+            return
+        }
+        // do ajax refresh
+        var url = "<%= url_for(:controller=>'msgs',:action=>'ajax_update_msg_status', :id=>@msg) %>"
+
+        new Ajax.Request(url, { method: 'get', onSuccess: on_success});
+        // if is_complete status then stop
+
+    }
+
+        pe = new PeriodicalExecuter(update_status, 2);
+        document.getElementById('spinner').style.display = 'inline'
+</script>
+<% end %>

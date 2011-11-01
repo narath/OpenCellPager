@@ -1,0 +1,6 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+page_to_joe:
+  msg: msg_to_joe
+  org: sample
+  user: joe

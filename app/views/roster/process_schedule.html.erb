@@ -1,0 +1,30 @@
+<% set_page_title( "Schedule Processing Results" ) %>
+
+<h1>Schedule Processing Results<%= h(@org.name) %></h1>
+
+<%= error_messages_for 'roster' %>
+<%= flash[:message] %>
+<%= flash[:notice] %>
+
+<p>Today is <%= Time.now.localtime.to_s %></p>
+
+<% if @result.err_msgs.size>0 %>
+    <p>There were <%= @result.n_err %> errors.</p>
+    <ul>
+      <% @result.err_msgs.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+<% end %>
+
+    <p>The following <%= @result.n_processed %> records were processed.</p>
+    <ul>
+      <% @result.msgs.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+
+<%= link_to "Back to schedule", {:controller => :roster, :action => :browse} %>
+
+
+

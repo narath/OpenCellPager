@@ -1,0 +1,13 @@
+<% if member.forward_to.nil? %>
+ Forwarding disabled
+<% else %>
+ 
+<%= link_to_function(image_tag("/images/trash.gif", :style=>"vertical-align: middle;padding-bottom:5px;", :title=>'Do Not Forward'), "stop_forwarding(#{@member.id})") %>
+
+<span class='forwarding_chain'>
+  <% member.forwarding_chain.each do |u| %>
+    > <%= display_reachability(u) %>
+  <% end %>
+</span>
+
+<%end%>

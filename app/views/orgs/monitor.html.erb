@@ -1,0 +1,21 @@
+
+ <% form_for :org, @org, :url => { :action => "monitor_update" } do |f| %>
+<table border="0">
+  <tr><td><%= f.label :monitor_on %></td><td><%= f.check_box :monitor_on %></td></tr>
+  <tr><td><%= f.label :monitor_is_panicking, "Is Panicking?" %></td><td><%= f.check_box :monitor_is_panicking%></td></tr>
+  <tr><td colspan=2>Settings:</td></tr>
+  <tr><td><%= f.label :monitor_minutes,"Panic after minutes:"%></td><td><%= f.text_field :monitor_minutes %><br>
+  The number of minutes after I will start panicking if there have been X unsent messages (default <%= DEFAULT_MONITOR_MINUTES %>)
+  </td></tr>
+  <tr><td><%= f.label :monitor_unsent_pages, "Panic after unsent pages:" %></td><td><%= f.text_field :monitor_unsent_pages %><br>
+  The number of pages that are unsent (after the last successful page) after which (if the time above has elapsed) I will start panicking.
+  (default <%= DEFAULT_MONITOR_UNSENT_PAGES %>)
+  </td></tr>
+  <tr><td><%= f.label :monitor_check_in_minutes,"Check at most every X minutes:" %></td><td><%= f.text_field :monitor_check_in_minutes %><br>
+  The monitor is checked with every new page sent. It is checked at most every X minutes. (default <%= DEFAULT_MONITOR_CHECK_IN_MINUTES %>).
+  </td></tr>
+  <tr><td></td><td><%= f.submit %></td></tr>
+
+</table>
+
+ <% end %>

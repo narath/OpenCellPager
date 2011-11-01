@@ -1,0 +1,33 @@
+<h1>Listing Rules</h1>
+
+
+<p><%= link_to 'New router_rule', new_router_rule_path %></p>
+
+<table border="1">
+  <tr>
+    <th>Pattern</th>
+    <th>Position</th>
+    <th>Backend</th>
+    <th>Comment</th>
+  </tr>
+
+<% @router_rules.each do |router_rule| %>
+  <tr>
+    <td><%=h router_rule.pattern %></td>
+    <td><%=h router_rule.position %></td>
+    <td><%=h (router_rule.backend ? router_rule.backend.name : "") %></td>
+    <td><%=h router_rule.comment %></td>
+    <td><%= link_to 'Show', router_rule %></td>
+    <td><%= link_to 'Edit', edit_router_rule_path(router_rule) %></td>
+    <td><%= link_to 'Destroy', router_rule, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<h2>Test rules</h2>
+  <% form_remote_tag :url => {:action => :ajax_test},
+                     :update => 'results', :position => :top do %>
+    Phone number: <%= text_field_tag "phone" %>
+    <%= submit_tag 'Test' -%>
+  <% end %>
+<div id='results' style='border: 1px black solid'></div>

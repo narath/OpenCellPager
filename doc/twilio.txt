@@ -1,0 +1,10 @@
+# Twilio is a reasonable gateway test alternative
+# it might not be as good for africa
+# and does not directly support hippa compliance
+
+######################
+#### Install
+######################
+
+sudo gem install twilio-ruby
+

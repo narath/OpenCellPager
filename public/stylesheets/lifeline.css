@@ -1,0 +1,439 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.clear {
+  clear: both;
+  height: 1px;
+  overflow: hidden;   /* prevent IE expanding the container */
+  margin: 0;          /* keep flush with surrounding blocks */
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+/* ===================================================
+  default styles
+====================================================*/
+
+h1 {
+	font-size:  1.8em;
+	vertical-align: top;
+	color: #222;
+	font-weight: normal;
+	margin: 0.5em 0;
+}
+
+h1 em a {
+  text-decoration: none;
+  color: #222;
+}
+
+/* for the feed icon */
+h1 a img {
+  margin-left: 5px;
+  margin-bottom: -1px;
+}
+
+h2 {
+	font-size: 1.675em;
+	line-height: 1.5em;
+	color: #222;
+	font-weight: normal;
+	margin: 0.5em 0;
+	}
+
+h3 {
+  clear: left;
+	font-size: 1.4em;
+	line-height: 1.5em;
+	color: #222;
+	font-weight: normal;
+	text-decoration: none;
+	margin: 0.5em 0;
+}
+
+h4 {
+  clear: left;
+  margin: 1.0em 0 0.5em 0; 
+	font-size: 1.25em;
+	line-height: 1.4em;
+	color: #222;
+	font-weight: normal;
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+}
+a:link {
+	color: #2A458A;
+	}
+a:visited {
+	color: #2A458A;
+	}
+a:hover {
+	color: #aa1212;
+}
+
+img {
+  border: 0px none;
+}
+
+blockquote {
+  padding: 0 1em 0em 1em;
+}
+
+p {
+  padding-bottom: 0.5em;
+  line-height: 1.5em;
+}
+
+fieldset {
+  padding: 10px;
+  background-color: #def;
+}
+
+ul li {
+  list-style-type: none;
+  line-height: 1.5em;
+  margin-left: 0px;
+  padding: 0;
+}
+
+/* ===================================================
+  body
+====================================================*/
+
+body {
+	font-family: "Lucida Grande", verdana, arial, helvetica, sans-serif;
+	font-size: 12px;
+}
+
+div.wrap{
+	text-align:center;
+	clear:both;
+	width:100%;
+	float:left;}
+
+div.wrap-inner{
+	width:800px;
+	text-align:left;
+	margin:auto;
+	position:relative;
+	padding: 5px 10px 0 10px;
+	}
+
+
+.main {
+  clear: both;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+	color: #000;
+}
+
+.content {
+  margin: 0;
+  padding: 5px 5px;
+  width: 690px;
+}
+
+
+/* ===================================================
+  banner
+====================================================*/
+
+.banner {
+  margin: 0;
+  padding: 0px 0px 2px 0px;
+  height: 70px;
+  position: relative;
+  background-color: #fff;
+  border-bottom: 1px solid #a0a0a0;
+}
+
+.banner_logo {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+}
+
+.banner_text {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: xx-large;
+	position: absolute;
+	top: 15px;
+	left: 75px;
+	vertical-align: middle;
+}
+
+.topbar {
+  position: relative;
+  border-bottom: 1px solid #a0a0a0;	
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: small;
+  background-color: #efefef;
+  margin-bottom: 4px;
+  }
+  
+/* ===================================================
+  footer
+====================================================*/
+
+.footer {
+	clear: both;
+	margin: 20px 0px 0 0px;
+	padding-bottom: 20px;
+	border-top: 1px solid #aaa;
+} 
+
+/* ===================================================
+  list with bold first column
+====================================================*/
+
+.display_list  {
+   margin: 0 0 10px 0;
+}
+
+.display_list td {
+  padding: 4px 0px 0px 0px;
+}
+
+.display_list td:first-child {
+vertical-align: top;
+padding: 4px 4px 0px 0px;
+font-weight: bold;
+}
+
+/* ===================================================
+   spreadsheet table format gray box
+====================================================*/
+
+.explore_list  {
+  margin-top: 1em;
+  background-color: #ddd;
+  border:thin groove; 
+}
+
+.explore_list tr {
+  background-color: #eee;
+}
+
+.explore_list td, th {
+  padding: 2px 4px 2px 4px;
+}
+
+
+
+.hint {
+  font-style: italic;
+}
+
+.form_fields  {
+  margin: 0 0 10px 0;
+}
+
+.form_fields td{
+  padding: 10px 0px 0px 0px;
+}
+
+.form_fields td:first-child {
+  vertical-align: top;
+  padding: 10px 5px 0 0px;
+  font-weight: bold;
+}
+
+label {
+  font-weight: bold;
+}
+
+
+
+/* ===================================================
+  message and message status lists
+====================================================*/
+
+.msg_row {
+  margin: 0 10px 5px 0;
+  background-color: #ddd;
+  padding-bottom: 1px;
+}
+
+.msg_hdr {
+  background-color: #def;
+  padding: 2px 2px 2px 6px;
+}
+
+.msg_body {
+	padding: 5px;
+	margin: 5px 5px 5px 5px;
+	border: 1px solid #a0a0a0;
+	background-color: #fff;
+}
+
+.status_list  {
+  background-color: #ddd;
+  border:thin groove; 
+}
+
+.status_list tr {
+  background-color: #eee;
+}
+
+.status_list td, th {
+  padding: 4px 6px 4px 6px;
+}
+
+/* ===================================================
+  index and hospoital home page
+====================================================*/
+
+.xlen {
+	background-color: red;
+}
+
+.home_wrap {
+	width: 100%;
+}
+
+.home_note {
+  margin-top: 1em;
+	text-align: center; 
+	border: solid 1px black; 
+	width: 600px; 
+	padding: 5px;
+}
+
+.home_block {
+  margin-top: 1em;
+	padding: 5px;
+}
+
+.home_block ul {
+  line-height: 2em;
+  list-style: none;
+}
+
+.member_menu {
+  margin-top: 1em;
+	text-align: center; 
+	border: solid 1px black; 
+	padding: 5px;
+	background-color: #def;
+	width: 600px; 
+}
+
+.send_page {
+  margin-top: 1em;
+	text-align: center; 
+	border: solid 2px black; 
+	width: 600px; 
+	padding: 5px;
+	background-color: #def;
+	font-size: 1.4em;
+}
+
+
+
+/* ===================================================
+  ornamentation
+====================================================*/
+
+.forwarding_chain {
+	font-weight: bold;
+}
+
+.unreachable {
+	color: red;
+}
+
+/* ===================================================
+  Message
+====================================================*/
+
+.textframe {
+	padding: 5px;
+	margin: 5px 20px 5px 0;
+	border: 1px solid #a0a0a0;
+}
+
+/* status notices to user (from flash) */
+.notice {
+  border: 2px solid #839567;
+  padding: 1em;
+  margin-bottom: 1.5em;
+  background-color: #f0f0f0;
+  font-weight: bold;
+  }
+
+.warning {
+  border: 2px solid #c01010;
+  padding: 1em;
+  margin-bottom: 1.5em;
+  background-color: #f0f0f0;
+  font-weight: bold;
+  }
+
+/* form validation and save errors generated by error_messages_for */
+.errorExplanation {
+  border: 2px solid #c01010;
+  padding: 0 1em 1em 1em;
+  margin-bottom: 2em;
+  background-color: #f0f0f0;
+  font: bold sans-serif;
+  }
+
+.errorExplanation ul li {
+  list-style-type: none;
+  text-align: left;
+  margin-left: 0;
+  font-weight: bold;
+}
+
+.fieldWithErrors   {
+  border: 2px solid #c01010;
+  padding: 2px;
+}
+
+/* ===================================================
+
+pagination
+
+====================================================*/
+
+.flickr_pagination {
+  text-align: center;
+  padding: .3em; }
+  .flickr_pagination a, .flickr_pagination span {
+    padding: .2em .5em; }
+  .flickr_pagination span.disabled {
+    color: #AAA; }
+  .flickr_pagination span.current {
+    font-weight: bold;
+    color: #af3939; }
+  .flickr_pagination a {
+    border: 1px solid #DDDDDD;
+    color: #3939af;
+    text-decoration: none; }
+    .flickr_pagination a:hover, .flickr_pagination a:focus {
+      border-color: #336699;
+      background: #0063DC;
+      color: white; }
+  .flickr_pagination .page_info {
+    color: #aaa;
+    padding-top: .8em; }
+  .flickr_pagination .prev_page, .flickr_pagination .next_page {
+    border-width: 2px; }
+  .flickr_pagination .prev_page {
+    margin-right: 1em; }
+  .flickr_pagination .next_page {
+    margin-left: 1em; }
+	
+	

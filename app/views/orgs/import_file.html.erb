@@ -1,0 +1,22 @@
+<% set_page_title( "Import users" ) %>
+
+<h1>Import Users</h1>
+
+<%= error_messages_for 'org' %>
+<% if flash[:message] %>
+ <div class="flash" style="border: 1px solid red"><%= flash[:message] %></div>
+<% end %>
+
+<% if @show_hint %>
+<%= render :partial => "csvformat" %>
+<% end %>
+
+<p>
+<ul>
+<% @results.each do |result| %>
+<li><%= result %></li>
+<% end %>
+</ul>
+</p>
+
+<%= link_to("Import Another", :controller=>'orgs', :action=>'import')%>

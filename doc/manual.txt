@@ -1,0 +1,21 @@
+# Open Cell Pager Manual
+
+This is the place to start developing a manual for the users of the Open Cell Pager System
+The 2 user groups are both included here, administrators and users.
+Another group addressed in a different manual are developers (See manual_dev.txt for that document)
+
+# Administrators guide
+
+## Special tasks
+
+### How to time how long it takes to send and receive messages
+
+Send a message to the server itself
+In the body of the message put only:
+cmd_time_msg
+
+After this is delivered, wait a while and refresh the message. When the message is received by the system and processed
+the time received will be added to the message with the difference in seconds between sending and receiving.
+
+
+# Users guide

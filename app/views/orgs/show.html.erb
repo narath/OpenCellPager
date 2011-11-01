@@ -1,0 +1,62 @@
+<% set_page_title( h(@org.name) ) %>
+
+<% if @user.registered? %>
+  <h1><%= h(@org.name) %> </h1> 
+  <h2>Welcome <%= h(@user.name) %></h2>
+  <%= render(:partial => 'members/menu', :locals=>{:member=>@user}) %>
+<% else %>
+  <h1>Welcome to the <%= h(@org.name) %></h1>
+<% end %>
+
+<div class="home_wrap">
+
+  <div class="home_block">
+    <ul>
+       
+    <% if @user.registered? %>
+
+        <% if @user.admin? %>
+          <li><%= link_to("List Users", :controller=>'members', :action=>'browse') %></li>
+          <li><%= link_to("Import Users", :controller=>'orgs', :action=>'import') %></li>
+          <li><%= link_to("Export Users", :controller=>'members', :action=>'export', :window => "export") %></li>
+          <li><%= link_to("List Groups", :controller=>'groups', :action=>'browse') %></li>
+          <li><%= link_to("Duty Roster", :controller=>'roster', :action=>'browse') %></li>
+
+          <li><%= link_to("Show All Messages", :controller=>'msgs', :action=>'browse') %></li>
+          <li><%= link_to("List Recognized IPs", :controller=>'ips', :action=>'browse') %></li>
+          <li><%= link_to("Show Balance", :controller=>'orgs', :action=>'balance') %></li>
+          <li><%= link_to_unless_current("Change the organization settings", :controller=>'orgs', :action=>'edit') %></li>
+          <li><%= link_to("Panic Monitor", :controller => "admin", :action=>'monitor')%>
+          <% if @org.monitor_is_panicking %> IS PANICKING!! <% end %>
+          <% if @org.monitor_on %> - is on
+          <% else %> - IS OFF! <% end %>
+          </li>
+          <li><%= link_to("Access log files",:controller=>'admin') %></li>
+          <li>-</li>
+        <% end %>
+        <li><%= link_to_with_back("Show pages sent to your phone", :controller=>'members', :action=>'pages', :id=>@user) %></li>
+        <li><%= link_to_with_back("Change your paging status or forwarding settings", :controller=>'members', :action=>'edit_status', :id=>@user) %></li>
+
+    <% else %>
+
+      <li> 
+        <p> You are not currently logged in.</p>
+
+        <p><%= link_to_unless_current("Login", :controller=>'users', :action=>'login') %> if you wish to update your name, phone #, or password</p>
+      </li>
+
+    <% end %>
+
+    </ul>
+  </div>
+ 
+  <div class="send_page">
+      <%= link_to("Send a Page Now", :controller=>'msgs', :action=>'address') %>
+  </div>
+
+
+  <div class="home_note">
+    <p> This computer is recognized as being in the <%= h(@org.name) %> network (<%= request.remote_ip%>)</p>
+  </div>
+
+</div>

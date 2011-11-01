@@ -1,0 +1,12 @@
+<% set_page_title( "Edit IP" ) %>
+
+<h1>Edit IP ''<%= h(@ip.address) %>''</h1>
+
+<%= error_messages_for 'ip' %>
+
+<fieldset>
+  <% form_for :ip, :url  => {:controller=>'ips', :action => 'update', :id => @ip, :back => @back} do |form| -%>
+    <%= render :partial => "form", :object => form %>
+    <%= submit_tag "Save" %>  <%= cancel_link %>
+  <% end -%>
+</fieldset>

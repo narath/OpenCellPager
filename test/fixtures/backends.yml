@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: One
+  backend_type: test
+  config: MyString
+  balance: 1
+  total_sent: 1
+  total_received: 1
+
+two:
+  name: Two
+  backend_type: test
+  config: MyString
+  balance: 1
+  total_sent: 1
+  total_received: 1

@@ -1,0 +1,209 @@
+# Using Kannel as the backend
+
+http://chipmunkninja.com/Setting-up-Configuring-and-Using-13@
+www.kannel.org
+
+# depedendencies
+sudo apt-get install libxml2
+sudo apt-get install libxml2-dev
+
+# Download Kannel
+cd ~/dev_src/
+wget http://www.kannel.org/download/1.4.3/gateway-1.4.3.tar.gz
+tar -xzvf gateway-1.4.3.tar.gz
+cd gateway-1.4.3
+./configure --prefix=/usr/local/kannel --enable-start-stop-daemon
+sudo make > make.log &
+tail -f make.log
+
+sudo make install > install.log &
+tail -f install.log
+
+# configure
+cd ~/dev_src/gateway-1.4.3
+sudo cp gw/smskannel.conf /usr/local/kannel
+sudo cp doc/examples/modems.conf /usr/local/kannel
+
+# edit smskannel.conf
+sbin/bearerbox -v 0 kannel.conf &
+
+# in another terminal
+sbin/smsbox -v 0 kannel.conf &
+
+# test sending a message
+http://127.0.0.1:13013/cgi-bin/sendsms?username=tester&password=foobar&to=16175104446&text=hello%20world
+
+# can test from outside the linux box (for testing purposes)
+# get ip from ifconfig
+ifconfig
+
+# in firefox on server
+http://10.211.55.4:13013/cgi-bin/sendsms?username=tester&password=foobar&to=16175104446&text=hello%20world
+
+
+# testing sending x messages
+require 'open-uri'
+url = "http://#{server}:#{port}/cgi-bin/sendsms?username=#{u}&password=#{p}&to=#{to}&text=#{msg}"
+1.upto(10) do |i|
+page = open(url)
+puts "#{i}. " + page.read
+end
+
+###########################
+## Installing on the server
+
+# install dependencies
+sudo apt-get install libxml2-dev
+
+# Download Kannel
+cd ~/installs/
+wget http://www.kannel.org/download/1.4.3/gateway-1.4.3.tar.gz
+tar -xzvf gateway-1.4.3.tar.gz
+cd gateway-1.4.3
+./configure --prefix=/usr/local/kannel --enable-start-stop-daemon
+sudo make > make.log &
+# a gotcha above is if you have not entered sudo for a while (it needs to have cached the password)
+tail -f make.log
+
+sudo make install > install.log &
+tail -f install.log
+
+#BOXPATH=/usr/local/kannel/sbin
+#PIDFILES=/var/run/kannel
+#CONF=/etc/kannel/kannel.conf
+
+# file you need to copy over
+/etc/kannel/kannel.conf
+/etc/kannel/modems.conf
+
+# copy over the needed files
+cd config/kannel
+sftp opencellpager@41.221.60.25
+put kannel
+put kannel.conf
+put modems.conf
+
+sudo mkdir /etc/kannel
+#sudo mkdir /var/run/kannel
+#dont create the above so that the kannel user can create it and own it
+
+chmod a+x kannel
+sudo mv kannel /etc/init.d
+sudo mv *.conf /etc/kannel
+
+# create the kannel user
+sudo useradd kannel
+(add password) (i use help333)
+# add to dialout group so it can use the ttyS0
+sudo usermod -G dialout kannel
+
+
+# before you can use it, you need to stop the ocp daemon and uninstall it
+cd /etc/init.d
+sudo ./ocpdaemon stop
+# I would suggest after stopping it, that you test the kannel server first
+sudo update-rc.d -f ocpdaemon remove
+
+# test services
+sudo /etc/init.d/kannel
+
+# check to see that it is running
+#http://192.168.2.13:13000/status
+#http://41.221.60.25:13000/status - cannot do because blocked
+
+
+# by installing the above - kannel is already installed into the system
+# if not try the following
+# install
+sudo update-rc.d kannel defaults 98 02
+
+# to remove
+#sudo ./kannel stop
+#sudo update-rc.d -f kannel remove
+
+# connect the modem, check it with screen /dev/ttyS0 (remember ^a-k exits)
+screen /dev/ttyS0
+# to reset the modem (if it is failing on CPIN)
+AT+CFUN=1
+
+# check that the process is running
+ps ax | grep kannel
+
+# log files
+sudo tail -f /tmp/kannel.log /tmp/smsbox.log /tmp/modem.log /tmp/access.log
+
+# to get the status of the server
+lynx -dump "http://localhost:13000/status"
+
+# check to see that it is running
+http://192.168.2.13:13000/status
+
+# to send a test message
+wget "http://localhost:13013/cgi-bin/sendsms?username=opencellpager&password=PASSWORD&to=+16175104446&text=hello%20world"
+
+# MUHIMBILI STATUS INFO
+http://192.168.10.207:13000/status
+http://192.168.10.207:13000/store-status
+http://192.168.10.207:13000/restart?password=PASSWORD
+
+######################
+#### to setup local server to use test server
+######################
+Org Settings: (change 192.168.1.97 with your local ip)
+kannel-server=192.168.1.203,kannel-port=13013,
+kannel-username=opencellpager,kannel-password=PASSWORD,
+dlr-url=http://192.168.1.203:3000/kannel/deliveryreport,
+dlr-mask=31,receive-url=http://192.168.1.203:3000/kannel/receive
+
+# and don't forget to update kannel.conf to point to your server for receipts
+
+######################
+#### How to use FAKESMSC
+######################
+
+sudo vim /etc/kannel/kannel.conf
+# comment out your smsc
+# uncomment the fake smsc
+# now all messages sent to this kannel box will got to your fake smsc
+# Note: the fake smsc runs on port 10,000, but you still connect to your kannel server thru
+# your normal port usu 101
+
+sudo /etc/init.d/kannel restart
+
+# now your fake smsc should be running
+# to interact with it (receive and send messages)
+~/installs/gateway-1.4.3/test/fakesmsc
+
+Usage: fakesmsc [-H host] [-r port] [-i interval] [-m max] [-z <type>] <msg> ...
+
+* 'host' and 'port' define bearerbox connection (default localhost:10000),
+* 'interval' is time in seconds (floats allowed) between generated messages,
+* 'max' is the total number sent (-1, default, means unlimited),
+* <type> bitmask of which elements to add randomized numbers for MO messages,
+*        1: src no, 2: recv no, 4: last text element,
+*        where the given static elements in <msg> are used as constant prefixes,
+* <msg> is message to send, if several are given, they are sent randomly.
+
+msg format: "sender receiver type(text/data/udh/route) [udhdata|route] msgdata"
+
+Type "text" means plaintext msgdata, "data" urlcoded, "udh" urlcoded udh+msg
+and "route" means smsbox-id routed plaintext msgdata
+Examples:
+
+fakesmsc -m 1 "123 345 udh %04udh%3f message+data+here"
+fakesmsc -m 1 "123 345 route smsbox1 message+data+here"
+fakesmsc -i 0.01 -m 1000 "123 345 text nop" "1 2 text another message here"
+fakesmsc -z 7 -m 1000 "123<rand> 345<rand> text nop <rand>"
+
+# in interactive mode, i think the format is just
+# sender receiver type(text) msgdata(as plaintext)
+16175551111 +16175552222 text send narath:two
+
+16175551111 +16175552222 text register narath:password
+16175551111 +16175552222 text
+
+
+
+
+
+

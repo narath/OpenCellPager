@@ -1,0 +1,57 @@
+<% set_page_title( "Edit Roster Assignment" ) %>
+
+<h1>Edit Roster Assignment for <%= h(@org.name) %></h1>
+
+<%= error_messages_for 'roster' %>
+<%= flash[:message] %>
+<%= flash[:notice] %>
+
+<fieldset>
+  <% form_for :simple, :url  => {:controller=>'roster', :action => 'update'} do |form| -%>
+  <table class='form_fields'>
+
+    <tr>
+      <td><label>Start Date</label></td>
+      <td><%= form.text_field :start_date, :size => 15 %>
+	      <p class='hint'>Date this duty starts (use format dd MMM yyyy e.g. 10 Feb 2010)</p>
+	   </td>
+
+    </tr>
+
+    <tr>
+      <td><label>Position:</label></td>
+      <td><%= form.text_field :call_role_name, :size => 30 %>
+        <img id="spinner_role" src="/images/loader2.gif" style="display: none;" /><BR>
+        <span class='hint'>Enter the exact name of the role here (e.g. Anesthesia On Call)</span>
+      	<div style='margin: 5px 1em 1px 2em;' id="results_role"></div>
+      	<%= observe_field "simple_call_role_name",
+		:frequency => 0.5,
+		:update => 'results_role',
+		:url => { :controller => 'roster', :action => 'ajax_get_names' },
+		:with => "'search_for=' + escape(value)+ '&text_id=simple_call_role_name'",
+		:loading => "document.getElementById('spinner_role').style.display='inline'",
+		:loaded => "document.getElementById('spinner_role').style.display='none'" %>
+      </td>
+    </tr>
+
+    <tr>
+      <td><label>Assigned to:</label></td>
+      <td><%= form.text_field :call_assignment_name, :size => 30 %><img id="spinner_assign" src="/images/loader2.gif" style="display: none;" />
+	    	<p class='hint'>Enter the exact name of the person here.</p>
+
+      	<div style='margin: 5px 1em 0px 2em;' id="results_assign"></div>
+      	<%= observe_field "simple_call_assignment_name",
+		:frequency => 0.5,
+		:update => 'results_assign',
+		:url => { :controller => 'roster', :action => 'ajax_get_names' },
+		:with => "'search_for=' + escape(value)+ '&text_id=simple_call_assignment_name'",
+		:loading => "document.getElementById('spinner_assign').style.display='inline'",
+		:loaded => "document.getElementById('spinner_assign').style.display='none'" %>
+	    </td>
+    </tr>
+  </table>
+    <%= form.hidden_field :id %>
+    <%= submit_tag "Save" %>
+    <%= cancel_link %>
+  <% end -%>
+</fieldset>

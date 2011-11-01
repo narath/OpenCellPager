@@ -1,0 +1,43 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+joe:
+  org:          sample
+  name:         "Joe Smith"
+  unique_name:  "joe smith"
+  login_name:   "joe"
+  phone:        "8025551212"
+  password:     "password"
+  sms_validated: true
+
+joe_jones:
+  org:          sample
+  name:         "Joe Jones"
+  unique_name:  "joe jones"
+  login_name:   "joe_jones"
+  phone:        "8025551213"
+  password:     "password"
+  sms_validated: true
+
+jake:
+  org:          sample
+  name:         "Jonathan Smith"
+  unique_name:  "jonathan smith"
+  login_name:   "jake"
+  phone:        "8025551214"
+  password:     "password"
+  sms_validated: true
+
+admin:
+  org:          sample
+  name:         "Admin"
+  unique_name:  "admin"
+  password:     "password"
+  admin:        1
+
+doc_on_call:
+  org:          sample
+  name:         "Doctor On Call"
+  unique_name:  "doc on call"
+  login_name:   "doc_on_call"
+  password:     "password"
+  

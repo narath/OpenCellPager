@@ -1,0 +1,46 @@
+<% set_page_title( "New User" ) %>
+
+<h1>New User for <%= h(@org.name) %></h1>
+
+<%= error_messages_for 'member' %>
+
+<fieldset>
+  <% form_for :member, :url  => {:controller=>'members', :action => 'create', :back => @back} do |form| -%>
+
+  <table class='form_fields'>
+
+    <tr>
+      <td><label>Login Name</label></td>
+      <td><%= form.text_field :login_name, :size => 20 %>
+	      <p class='hint'>Name used to sign into the system.</p>
+	   </td>
+
+    </tr>
+
+    <tr>
+      <td><label>Password</label></td>
+      <td><%= form.password_field :password, :size => 35 %><span class='hint'>(Minimum <%= MIN_PASSWORD_LEN %> characters)</span></td>
+    </tr>
+
+    <tr>
+      <td><label>Display Name</label></td>
+      <td><%= form.text_field :name, :size => 60 %>
+	    	<p class='hint'>User's name as it is displayed to others.</p>
+	    </td>
+    </tr>
+
+    <tr>
+      <td><label>Phone</label></td>
+      <td>
+        <%= form.text_field :phone, :size => 20 %> (country code)-(area code)-(number)
+        <p>e.g. 1-603-650-5000 (number in North America)<br>
+        e.g. 255-766-823-823 (number in Tanzania)
+        </p>
+      </td>
+    </tr>
+     
+  </table>
+
+    <%= submit_tag "Save" %> 
+  <% end -%>
+</fieldset>

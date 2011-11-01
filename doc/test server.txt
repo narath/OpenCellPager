@@ -1,0 +1,45 @@
+######################
+#### NETWORK CONFIG
+######################
+
+# to set fixed ip address in ubuntu
+sudo vi /etc/network/interfaces
+
+# Edit
+auto eth0
+#iface eth0 inet dhcp
+iface eth0 inet static
+        address 192.168.1.201
+        netmask 255.255.255.0
+        network 192.168.1.0
+        broadcast 192.168.1.255
+        gateway 192.168.1.1
+
+# I did not update the DNS servers but you can if you know them
+# sudo vi /etc/resolv.conf
+
+sudo /etc/init.d/networking restart
+
+# ping from your development machine
+
+# then setup ssh keys
+ssh builder@192.168.1.205
+
+mkdir .ssh
+chmod g-w .ssh
+
+
+# ssh - on workstation
+cat ~/.ssh/id_rsa.pub | ssh builder@192.168.1.205 "cat >> .ssh/authorized_keys2"
+
+chmod 0600 $HOME/.ssh/authorized_keys2
+cd $HOME/.ssh && ln -s authorized_keys2 authorized_keys
+
+# create a public key for the server (for git)
+test -e .ssh/id_dsa.pub || ssh-keygen -t dsa
+
+# go to github (https://github.com/account) and add key to toliwaga account to permit access from this server
+cat id_dsa.pub
+# don't use more it adds newlines which github does not like
+
+

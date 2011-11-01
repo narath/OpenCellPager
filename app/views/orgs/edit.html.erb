@@ -1,0 +1,15 @@
+<% set_page_title( "Edit Organization Settings" ) %>
+
+<h1>Edit Organization Settings</h1>
+
+<%= error_messages_for 'org' %>
+<fieldset>
+<%= link_to "Manage Backends", backends_path %> | <%= link_to "Manage Router Rules", router_rules_path %><br>
+</fieldset>
+
+<fieldset>
+  <% form_for :org, :url  => {:controller=>'orgs', :action => 'update', :back => @back} do |form| -%>
+    <%= render :partial => "form", :object => form %>
+    <%= submit_tag "Save" %> <%= cancel_link %>
+  <% end -%>
+</fieldset>

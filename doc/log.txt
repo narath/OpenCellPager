@@ -1,0 +1,21 @@
+# Log files
+tail -f /var/www/ocp/current/log/*.log
+
+# Kannel logs
+sudo tail -f /tmp/kannel.log /tmp/smsbox.log /tmp/modem.log /tmp/access.log
+
+
+# Rails production log
+tail -f /var/www/ocp/current/log/production.log
+
+# gateway events
+tail -f /var/www/ocp/current/log/event.log
+
+# outbound server events
+tail -f /var/www/ocp/current/log/outbound.log
+
+# useful to get to the dir quickly
+cd /var/www/ocp/current
+
+# useful grep for seeing just the 
+grep log/outbound.log -e handle_outbound

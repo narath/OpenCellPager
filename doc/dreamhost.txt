@@ -1,0 +1,73 @@
+
+#
+# for capistrano deployment, we want to be able to ssh into server from client without password
+#
+
+# on dreamhost server
+mkdir .ssh
+chmod g-w .ssh
+
+# ssh - on workstation
+cat ~/.ssh/id_dsa.pub | ssh opencellpager@dredd.dreamhost.com "cat >> .ssh/authorized_keys2"
+
+# on dreamhost server
+chmod 0600 $HOME/.ssh/authorized_keys2
+cd $HOME/.ssh && ln -s authorized_keys2 authorized_keys
+
+
+#
+# mysql db
+#
+
+[dredd]$ mysql --version
+mysql  Ver 14.12 Distrib 5.0.32, for pc-linux-gnu (x86_64) using readline 5.2
+
+
+using panel, created mysql database ocp_production username ocp_pro at mysql.opencellpager.org
+ssh opencellpager@dredd.dreamhost.com
+
+
+
+#
+# git
+#
+
+# create public key to access github
+
+test -e .ssh/id_dsa.pub || ssh-keygen -t dsa 
+
+Your identification has been saved in id_dsa.
+Your public key has been saved in id_dsa.pub.
+The key fingerprint is:
+14:d5:7a:67:e1:c0:f5:96:26:83:a2:83:10:19:9f:17 opencellpager@dredd
+
+added key to toliwaga github account to permit access
+
+
+
+#
+# cap
+#
+
+cap deploy:setup 
+
+cap deploy:check 
+
+# on dredd
+
+mkdir /home/opencellpager/ocp/config
+
+# create database.yml file with password to mysql server
+
+chmod 600 /home/opencellpager/ocp/config/database.yml
+  
+
+mysql from dredd  
+  
+mysql -u username -ppassword -h hostname databasename
+mysql -u ocp_pro -pxxx -h mysql.opencellpager.org ocp_production
+
+mysql -u ocp_pro -p -h mysql.opencellpager.org ocp_production
+
+
+

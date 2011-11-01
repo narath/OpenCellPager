@@ -1,0 +1,13 @@
+<%= render :partial=>"menu" %>
+<p>Kannel server: <%=h @kannel_url %></p>
+<p>Return Code: <%= h @kannel_response.code %></p>
+<p>Message: <%= h @kannel_response.message %></p>
+<pre>
+    <%= h @kannel_response.body %>
+  </pre>
+
+<hr/>
+<h2>Kannel Log</h2>
+<pre><code>
+  <%= h(@lines) %>
+</code></pre>

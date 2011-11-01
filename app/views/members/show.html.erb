@@ -1,0 +1,72 @@
+<% set_page_title( h(@member.name) ) %>
+
+<h1>User: <%= h(@member.name) %></h1>
+
+<% if @allow_edit %>
+  <%= render(:partial => 'members/menu', :locals=>{:member=>@member}) %>
+<% end %>
+
+<table class='display_list'>
+	<tr>
+		<td>login name:</td>
+		<td><%= h(@member.login_name) %> </td>
+	</tr>
+	
+	<tr>
+		<td>phone</td>
+		<td>
+		  <%= h(@member.phone) %> 
+		  <% if @member.sms_validated? %>
+		    (<span class='green'>Validated</span>)
+		  <% else %>
+		    (<span class='red'>Not Validated</span>)
+		  <% end %>
+		  </td>
+    </tr>
+
+    <% if @member.forward_to %>
+	  <tr>
+		  <td>forward</td>
+		  <td> 
+				<p class='forwarding_chain'>
+				  <% @member.forwarding_chain.each do |u| %>
+				    > <%= display_reachability(u) %>
+				  <% end %>
+				</p>
+		  </td>
+		</tr>
+		<% end %>
+		
+	  <tr>
+		  <td>status</td>
+		  <td> <%= h(@member.display_status) %> </td>
+		</tr>
+
+<% if(  paged_msgs_count = @member.paged_msgs.count) > 0 %>
+	  <tr>
+		  <td>messages</td>
+		  <td> <%= link_to_with_back("Show #{pluralize(paged_msgs_count, 'page')} sent to this phone", :controller=>'members', :action=>'pages', :id=>@member) %> </td>
+		</tr>	
+<% end %>
+		
+</table>
+
+<h2>Groups</h2>
+
+<p><%= pluralize(@member.groups.count, "Group") %></p>
+
+<% if @user.admin? && Group.count>@member.groups.count %>
+<%= render(:partial => 'members/add_to_group', :locals=>{:member=>@member}) %>
+<% end %>
+
+<table class="explore_list">
+<% @member.groups.each do |group| %>
+  <tr>
+    <td><%= link_to h(group.name), :controller=>'groups', :action=>'show', :id=>group.id %> </td>
+    <td> <%= pluralize(group.users.count, "user") %> </td>
+    <% if @user.admin? %>
+      <td> <%= link_to_with_back("remove from group", :controller=>'members', :action=>'drop_from_group', :id=>@member.id, :group_id=>group) %> </td>
+    <% end %>
+  </tr>
+<% end %>
+</table>

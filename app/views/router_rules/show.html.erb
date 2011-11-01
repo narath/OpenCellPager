@@ -1,0 +1,23 @@
+<p>
+  <b>Pattern:</b>
+  <%=h @router_rule.pattern %>
+</p>
+
+<p>
+  <b>Position:</b>
+  <%=h @router_rule.position %>
+</p>
+
+<p>
+  <b>Backend:</b>
+  <%=h @router_rule.backend.name %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%=h @router_rule.comment %>
+</p>
+
+
+<%= link_to 'Edit', edit_router_rule_path(@router_rule) %> |
+<%= link_to 'Back', router_rules_path %>

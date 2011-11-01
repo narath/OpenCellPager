@@ -1,0 +1,6 @@
+<div class='member_menu'>
+  <%= link_to_with_back "set paging status", :controller=>:members, :action=>'edit_status', :id=>member.id%> | 
+  <%= link_to_with_back "edit name and phone", :controller=>:members, :action=>'edit', :id=>member.id%> | 
+  <%= link_to_with_back "confirm phone", :controller=>:members, :action=>'confirm', :id=>member.id%> | 
+  <%= link_to_with_back "change password", :controller=>:members, :action=>'edit_password', :id=>member.id%>
+</div>

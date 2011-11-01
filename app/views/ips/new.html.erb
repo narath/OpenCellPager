@@ -1,0 +1,12 @@
+<% set_page_title( "New Hospital IP Address" ) %>
+
+<h1>New IP Address for <%= h(@org.name) %></h1>
+
+<%= error_messages_for 'ip' %>
+
+<fieldset>
+  <% form_for :ip, :url  => {:controller=>'ips', :action => 'create', :back => @back} do |form| -%>
+    <%= render :partial => "form", :object => form %>
+    <%= submit_tag "Save" %> <%= cancel_link %>
+  <% end -%>
+</fieldset>

@@ -1,0 +1,11 @@
+<% results = [] if results.nil? %>
+<% results = [results] if !results.is_a?(Array) %>
+
+<%= select_tag("forwardees_popup", options_for_select(results.collect {|o| [o.name, o.id] }, member.forward_id)) %> (<%= results.size %>) 
+
+<%= observe_field "forwardees_popup",
+                  :frequency => 1,
+                  :before => "Element.show('spinner')",
+                  :complete =>  "Element.hide('spinner')",
+                  :url => {:action=>'ajax_set_forward', :id=>member.id, :only_path => false},
+                  :with => "'_method=put&value='+element.value" %>

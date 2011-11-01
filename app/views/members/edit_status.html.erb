@@ -1,0 +1,73 @@
+<% set_page_title( "Edit User Status" ) %>
+
+<h1>Edit Status for User <%=h(@member.display_name)%></h1>
+
+<%= error_messages_for 'member' %>
+
+<script type="text/javascript">
+  function lookup_users(member_id) {
+    Element.show('spinner')
+    var myAjax = new Ajax.Request('/members/ajax_lookup_forward?id='+member_id+'&key='+$('key').value, {asynchronous:true, evalScripts:true, onComplete: function(request){ Element.hide('spinner'); }})
+  }
+
+  function stop_forwarding(member_id) {
+    Element.show('spinner')
+    var myAjax = new Ajax.Request('/members/ajax_set_forward?id='+member_id, {asynchronous:true, evalScripts:true, onComplete: function(request){ Element.hide('spinner'); }})
+  }
+</script>
+
+<fieldset>
+  <% form_for :member, :url  => {:controller=>'members', :action => 'edit_status', :id => @member, :back => @back} do |form| -%>
+    
+    <%= form.hidden_field(:forward_id )%>
+
+    <table class='form_fields'>
+	    
+	    <% if !@member.sms_validated? %>
+      <tr>
+        <td><label>Warning</label></td>
+	      <td>  <span class='red'>	Phone not validated. No pages will be received.</span> </td> 
+      </tr>
+	    <% end %>
+	
+      <tr>
+        <td><label>Status</label></td>
+	     <td>  <%= form.select(:status, [USER_STATUS_ACTIVE, USER_STATUS_DO_NOT_PAGE].map {|i| [User.status_code_to_string(i), i]} )%></td> 
+      </tr>
+
+      <tr>
+        <td><label>Note</label></td>
+        <td> <%= form.text_field :note, :size => 60 %></td>
+      </tr>
+
+      <tr>
+        <td><label>Forward:</label></td>
+        <td>
+	        <fieldset>
+		
+ 		    <div id='forwardee'>
+            	<%= render :partial => "members/forwardee", :locals => {:member => @member}  %>
+			</div>
+
+		    <table>
+			  <tr>
+		        <td><%= text_field_tag :key, params[:key], :size=>20 %></td>
+		        <td><%= button_to_function("Find", "lookup_users(#{@member.id})") %>
+	            <td id='forwardees'>
+	              <%= render :partial => "members/forwardees", :locals => {:results => @member.forward_to, :member=>@member}  %>
+	            </td>
+                <td> <img id="spinner" src="/images/loader2.gif" style="display: none;" /></td>
+		      </tr>
+	        </table>
+	
+			 </fieldset>
+        </td>
+      </tr>
+
+
+
+    </table>
+
+    <%= submit_tag "Save" %>  <%= cancel_link %>
+  <% end -%>
+</fieldset>

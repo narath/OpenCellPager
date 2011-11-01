@@ -1,0 +1,24 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+use_one_for_america:
+  pattern: 1
+  position: 1
+  backend: one
+  comment: MyString
+
+use_two_for_tanzania_and_lesotho:
+  pattern: '255,266'
+  position: 1
+  backend: two
+  comment: MyString
+
+use_one_as_default:
+  pattern: *
+  position: 99
+  backend: one
+
+use_two_for_regular_expression_for_magic_numbers:
+  pattern: ^\d*999
+  position: 2
+  backend: two
+

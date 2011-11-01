@@ -1,0 +1,92 @@
+<% set_page_title( "Edit User SMS Status" ) %>
+
+<h1>Confirm phone receives SMS</h1>
+
+<%= error_messages_for 'member' %>
+<%= error_messages_for 'conf_msg' %>
+
+<% if  @conf_msg %>
+<table class='display_list' style='border:thin groove;'>
+	<tr><td>Time</td><td>Sent <%= @conf_msg.created_at %></td></tr>
+	<tr><td>Status</td><td>Sent <%= display_sms_status( @conf_msg.status) %></td></tr>
+</table>
+<% end %>
+
+<fieldset>
+
+    <table class='form_fields'>
+
+      <tr>
+        <td><label>Member</label></td>
+        <td>
+          <%=h(@member.display_name)%>
+        </td>
+      </tr>
+
+      <tr>
+        <td><label>Phone</label></td>
+        <td>
+          <%=@member.phone? ? h(@member.phone) : "<span class='red'>	reception not confirmed </span>" %>
+        </td>
+      </tr>
+
+			<tr>
+			  <td><label>Validation</label></td>
+			  <td> 
+				  <p>
+				    <% if @member.phone.blank? %>
+				      <span class='red'>	Can't confirm. </span>
+				    <% elsif @member.sms_confirmed? %>
+				      <span class='green'>	Reception confirmed </span>
+				    <% elsif @member.sms_validated? %>
+				      <span class='green'>	Phone force-validated but reception not confirmed </span>
+				    <% elsif @member.sms_validation_sent? %>
+				      <span class='red'>	Confirmation code sent but reception not confirmed </span>
+				    <% else %>
+				      <span class='red'>	Confirmation code not sent </span>
+				    <% end %>
+          </p>
+
+			    <% if !@member.phone.blank? && !@member.sms_confirmed? %>
+			      <p>Please enter the validation code sent to this phone.</p>
+						<table>
+							<tr>
+								<td style='margin:0; padding:0;'>
+									<% form_for :member, :url  => {:controller=>'members', :action => 'update_conf', :id => @member, :back => @back} do |form| -%>
+									  <%= form.text_field :sms_validation_received, :size => 4 %> 
+									  <%= submit_tag "Confirm" %>
+									<% end %>
+								</td>
+								<td style='margin:0; padding: 0 0 0 40px;'>
+									<%= button_to "#{@member.sms_validation_sent? ? 'Resend' : 'Send'} Validation Code", { :action => "send_conf", :id => @member}, {:method => :post} %>
+								</td>
+							</tr>
+						</table>
+			    <% end %>
+			
+			  </td>
+			</tr>
+      
+      <% if @user.admin? || @member.sms_validated? %>
+				<tr>
+				  <td><label>Override</label></td>
+				  <td>
+		        <% if @member.sms_validated? %>
+		          <%= button_to("Invalidate this phone", {:action => 'force_conf', :id => @member, :value=>DB_FALSE, :back=>@back}, {:confirm => "Are you sure you want to invalidate this phone?", :method => :post})%>
+					  <% else %>
+					    <%= button_to("Force validate this phone", {:action => 'force_conf', :id => @member, :value=>DB_TRUE, :back=>@back}, {:confirm => "Are you sure you want to force validate this phone?", :method => :post})%>
+					  <% end %>
+	        </td>
+			</tr>
+			<% end %>
+
+    </table>
+
+    <p>  
+      <%= cancel_link %> 
+    </p>
+
+</fieldset>
+
+
+

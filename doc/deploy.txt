@@ -1,0 +1,59 @@
+
+cap deploy --set-before ocp_server=linode
+cap deploy:migrate --set-before ocp_server=linode
+
+############################################
+# local
+############################################
+
+# simple deploy
+cap deploy:web:disable --set-before ocp_server=blue
+cap deploy --set-before ocp_server=blue
+cap deploy:web:enable --set-before ocp_server=blue
+cap deploy:cleanup --set-before ocp_server=blue
+
+# deploy with migrations --set-before ocp_server=blue
+cap deploy:web:disable --set-before ocp_server=blue
+cap deploy:migrations --set-before ocp_server=blue
+cap deploy:web:enable --set-before ocp_server=blue
+cap deploy:cleanup --set-before ocp_server=blue
+
+############################################
+# misc
+############################################
+
+# deploy another branch
+cap deploy --set-before ocp_server=local --set branch=test
+
+############################################
+# dreamhost
+############################################
+
+# simple deploy
+cap deploy:web:disable --set-before ocp_server=dreamhost
+cap deploy --set-before ocp_server=dreamhost
+cap deploy:web:enable --set-before ocp_server=dreamhost
+cap deploy:cleanup --set-before ocp_server=dreamhost
+
+# deploy with migrations --set-before ocp_server=dreamhost
+cap deploy:web:disable --set-before ocp_server=dreamhost
+cap deploy:migrations --set-before ocp_server=dreamhost
+cap deploy:web:enable --set-before ocp_server=dreamhost
+cap deploy:cleanup --set-before ocp_server=dreamhost
+
+############################################
+# dell
+############################################
+
+# simple deploy
+cap deploy:web:disable --set-before ocp_server=pilot
+cap deploy --set-before ocp_server=pilot
+cap deploy:web:enable --set-before ocp_server=pilot
+cap deploy:cleanup --set-before ocp_server=pilot
+
+# deploy with migrations --set-before ocp_server=pilot
+cap deploy:web:disable --set-before ocp_server=pilot
+cap deploy:migrations --set-before ocp_server=pilot
+cap deploy:web:enable --set-before ocp_server=pilot
+cap deploy:cleanup --set-before ocp_server=pilot
+

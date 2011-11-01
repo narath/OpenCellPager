@@ -1,0 +1,36 @@
+<% set_page_title( "Duty Roster" ) %>
+
+<% if @user.admin? %>
+  <p> <%= link_to_with_back("add", :controller=>'roster', :action=>'new') %> |
+  <%= link_to "process",{:controller=>"roster", :action=>"process_schedule"}, {:title=>'Process today\'s schedule',
+              :confirm => "Are you sure you want to process the schedule for today?", :method => :process} %>
+  </p>
+<% end %>
+
+<table class="explore_list">
+  <tr>
+    <% if @user.admin? %><td>Edit</td><% end %>
+     <% if @user.admin? %><td>Del</td><% end %>
+    <td>Start</td>
+    <td>Role</td>
+    <td>Assigned to</td>
+    <td>Processed</td>
+  </tr>
+<% @roster.each do |roster| %>
+  <tr>
+	<% if @user.admin? %>
+	  <td> <%= link_to_with_back("edit", :controller=>'roster', :action=>'edit', :id => roster) %> </td>
+	<% end %>
+
+	<% if @user.admin? %>
+	  <td> <%= link_to_trash({:controller=>'roster', :action => 'delete', :id => roster}, 'assignment') %> </td>
+	<% end %>
+    <td><%= h(roster.start_date) %> </td>
+    <td><%= h(roster.call_role.name) if roster.call_role %></td>
+    <td><%= h(roster.call_assignment.name) if roster.call_assignment %></td>
+    <td><%= h(roster.updated_at.localtime.strftime("%d-%m-%y %I:%M%p")) if roster.processed %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= render(:partial => 'shared/paginate', :locals => { :items=>@roster }) %>

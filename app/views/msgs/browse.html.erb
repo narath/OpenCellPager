@@ -1,0 +1,8 @@
+<% set_page_title( "Browse Messages" ) %>
+
+<h2><%= pluralize(@org.msgs.count, "Message") %></h2>
+
+<%= link_to("Refresh All",:controller=>'msgs',:action=>'refresh_all', :back=>@back) %>
+    
+<%= render :partial => "msgs/show_list", :locals => {:msgs=>@msgs} %>
+

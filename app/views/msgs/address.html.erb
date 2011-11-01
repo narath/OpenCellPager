@@ -1,0 +1,34 @@
+<% set_page_title( "Address Book" ) %>
+
+<h1>Send A Message To?</h1>
+
+<%= error_messages_for 'msg' %>
+
+<fieldset>
+
+  <p>
+	  <label>To:</label>
+	  <%= text_field_tag(:to, params[:to], :size => 60, :focus => true) %> <img id="spinner" src="/images/loader2.gif" style="display: none;" />
+	  <%= cancel_link %>
+	</p>
+	
+	<div style='margin: 5px 1em 0px 2em;' id="results"></div>
+
+	<%= observe_field :to,
+		:frequency => 0.5,
+		:update => 'results',
+		:url => { :controller => 'msgs', :action => 'ajax_get_address', :back=>@back },
+		:with => "'search_for=' + escape(value)", 
+		:loading => "document.getElementById('spinner').style.display='inline'",
+		:loaded => "document.getElementById('spinner').style.display='none'" %>
+</fieldset>
+	
+<% if @all %>
+  <h2>All Addresses</h2>
+  <%= render(:partial=> 'addresses', :object=>@all)%>
+<% else %>
+  <p class='hint'>Start typing and we'll show a list of matching names to choose from... </p>
+<% end %>
+
+  </form>
+

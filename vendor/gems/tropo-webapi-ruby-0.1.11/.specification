@@ -1,0 +1,116 @@
+--- !ruby/object:Gem::Specification 
+name: tropo-webapi-ruby
+version: !ruby/object:Gem::Version 
+  hash: 13
+  prerelease: 
+  segments: 
+  - 0
+  - 1
+  - 11
+  version: 0.1.11
+platform: ruby
+authors: 
+- Jason Goecke
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2011-06-24 00:00:00 -04:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: rspec
+  prerelease: false
+  requirement: &id001 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 13
+        segments: 
+        - 1
+        - 2
+        - 9
+        version: 1.2.9
+  type: :development
+  version_requirements: *id001
+- !ruby/object:Gem::Dependency 
+  name: json_pure
+  prerelease: false
+  requirement: &id002 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 31
+        segments: 
+        - 1
+        - 2
+        - 0
+        version: 1.2.0
+  type: :runtime
+  version_requirements: *id002
+- !ruby/object:Gem::Dependency 
+  name: hashie
+  prerelease: false
+  requirement: &id003 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 23
+        segments: 
+        - 0
+        - 2
+        - 0
+        version: 0.2.0
+  type: :runtime
+  version_requirements: *id003
+description: Ruby library for interacting with the Tropo Web API via REST & JSON
+email: jsgoecke@voxeo.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: []
+
+has_rdoc: true
+homepage: http://tropo.com
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 59
+      segments: 
+      - 1
+      - 8
+      - 6
+      version: 1.8.6
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.6.2
+signing_key: 
+specification_version: 3
+summary: Tropo Web API Ruby Gem
+test_files: []
+

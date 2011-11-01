@@ -1,0 +1,33 @@
+<p>
+  <b>Type:</b>
+  <%=h @backend.backend_type %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @backend.name %>
+</p>
+
+<p>
+  <b>Config:</b>
+  <%=h @backend.config %>
+</p>
+
+<p>
+  <b>Balance:</b>
+  <%=h @backend.balance %>
+</p>
+
+<p>
+  <b>Total sent:</b>
+  <%=h @backend.total_sent %>
+</p>
+
+<p>
+  <b>Total received:</b>
+  <%=h @backend.total_received %>
+</p>
+
+
+<%= link_to 'Edit', edit_backend_path(@backend) %> |
+<%= link_to 'Back', backends_path %>

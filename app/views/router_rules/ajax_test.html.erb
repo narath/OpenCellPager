@@ -1,0 +1,4 @@
+<%=h params[:phone] %> -> <% if @rule -%>
+<%=h "#{@rule.comment} pattern=#{@rule.pattern} backend=#{@rule.backend.name}" -%>
+<% else %> No match <% end -%>
+<br/>

@@ -1,0 +1,9 @@
+00 7 * * * (RAILS_ENV=production /usr/bin/ruby /var/www/ocp/current/script/runner CronTask.daily_tasks)
+
+30 4 * * 0 (HOME=/home/opencellpager /usr/bin/mysqldump --user=opencellpager --password=PASSWORD  --log-error=/home/opencellpager/backup/msql_dump.err --result-file=/home/opencellpager/backup/db_backup_sun.sql  ocp_production)
+30 4 * * 1 (HOME=/home/opencellpager /usr/bin/mysqldump --user=opencellpager --password=PASSWORD  --log-error=/home/opencellpager/backup/msql_dump.err --result-file=/home/opencellpager/backup/db_backup_mon.sql  ocp_production)
+30 4 * * 2 (HOME=/home/opencellpager /usr/bin/mysqldump --user=opencellpager --password=PASSWORD  --log-error=/home/opencellpager/backup/msql_dump.err --result-file=/home/opencellpager/backup/db_backup_tue.sql  ocp_production)
+30 4 * * 3 (HOME=/home/opencellpager /usr/bin/mysqldump --user=opencellpager --password=PASSWORD  --log-error=/home/opencellpager/backup/msql_dump.err --result-file=/home/opencellpager/backup/db_backup_wed.sql  ocp_production)
+30 4 * * 4 (HOME=/home/opencellpager /usr/bin/mysqldump --user=opencellpager --password=PASSWORD  --log-error=/home/opencellpager/backup/msql_dump.err --result-file=/home/opencellpager/backup/db_backup_thu.sql  ocp_production)
+30 4 * * 5 (HOME=/home/opencellpager /usr/bin/mysqldump --user=opencellpager --password=PASSWORD  --log-error=/home/opencellpager/backup/msql_dump.err --result-file=/home/opencellpager/backup/db_backup_fri.sql  ocp_production)
+30 4 * * 6 (HOME=/home/opencellpager /usr/bin/mysqldump --user=opencellpager --password=PASSWORD  --log-error=/home/opencellpager/backup/msql_dump.err --result-file=/home/opencellpager/backup/db_backup_sat.sql  ocp_production)

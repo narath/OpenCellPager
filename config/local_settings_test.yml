@@ -1,0 +1,13 @@
+---
+#if not defined, there will be no skeleton key (recommended)
+#:skeleton:
+
+# gateway config
+:kannel:
+  :username: username
+  :password: password
+:clickatell:
+  :api_id: 'api'
+  :username: 'username'
+  :password: 'password'
+#:tropo: did not find

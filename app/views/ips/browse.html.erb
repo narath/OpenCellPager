@@ -1,0 +1,26 @@
+<% set_page_title( "Browse IPs" ) %>
+
+<h2><%= pluralize(@org.ips.count, "Recognized IP") %></h2>
+
+<% if @user.admin? %>
+  <p> <%= link_to_with_back("add new ip", :controller=>'ips', :action=>'new') %> </p>
+<% end %>
+
+<table class="explore_list">
+<% @ips.each do |ip| %>
+  <tr>
+    <td><%= h(ip.address) %> </td>
+
+	<% if @user.admin? %>
+	  <td> <%= link_to_with_back("edit", :controller=>'ips', :action=>'edit', :id=>ip) %> </td>
+	<% end %>
+
+	<% if @user.admin? %>
+	  <td> <%= link_to_trash({:controller=>'ips', :action => 'delete', :id => ip}, 'ip address') %> </td>
+	<% end %>
+	
+  </tr>
+<% end %>
+</table>
+
+<%= render(:partial => 'shared/paginate', :locals => { :items=>@groups }) %>

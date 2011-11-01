@@ -1,0 +1,82 @@
+<% set_page_title( "New Message" ) %>
+
+<h1>New Message for <%= h(@org.name) %></h1>
+
+<%= error_messages_for 'msg' %>
+
+<fieldset>
+  <% form_for :msg, :url  => {:controller=>'msgs', :action => 'create', :back => @back} do |form| -%>
+
+    <table class='form_fields'>
+        
+      <tr>
+      	<td><label>To</label></td>
+        <td>
+      		<%= text_field_tag(:recipient_name, params[:recipient_name], :size => 60) %>
+      		<%= link_to( "Search", :controller=>'msgs', :action=>'address', :back => @back ) %>
+      	</td>
+      </tr>
+      
+      <tr>
+        <td><label>From</label></td>
+        <td><%= form.text_field :from, :size => 60, :focus => true %> <span id='msg_from_count'></span></td>
+      </tr>
+      
+      <tr>
+        <td><label>Text</label></td>
+        <td><%= form.text_area(:text, :rows => '4', :cols => 50)  %> <span id='msg_text_count'></span></td>
+      </tr>
+	  
+  	  <tr>
+  	  	<td>&nbsp;</td>
+  		  <td>
+  		    <%= submit_tag "Send", :disable_with=>"Sending message..." %>
+  		    <%= cancel_link %>
+  		  </td>
+  	  </tr>
+    </table>
+           
+  <% end -%>
+</fieldset>
+
+
+<script type="text/javascript"> 
+
+function show_chars_left(chars_left, input_field, count_field) {
+	$(count_field).update( chars_left );
+	$(input_field).className = chars_left >= 0 ? '' : 'xlen';
+}
+
+function show_message_chars_left() {
+	var from_chars = $('msg_from').getValue().length;
+	var text_chars = $('msg_text').getValue().length;
+	var from_chars_left = <%= MAX_FROM_LEN %> - from_chars;
+	var text_chars_left = <%= MAX_MSG_PAYLOAD %> - text_chars;
+	var total_message_chars_left = <%= MAX_MSG_PAYLOAD %> - (text_chars + from_chars);
+	
+	// the following is technically correct. but confusing as hell
+	//from_chars_left = Math.max( -from_chars, Math.min(from_chars_left, total_message_chars_left) )
+	
+	if (total_message_chars_left<0 && from_chars>0) {
+		// instead, we only show one negative count if combined field length is too great
+		$('msg_from').className = 'xlen';
+		$('msg_text').className = 'xlen';
+		$('msg_from_count').update( '' );
+		$('msg_text_count').update( total_message_chars_left );
+	}
+	else {
+		show_chars_left(from_chars_left, 'msg_from', 'msg_from_count');
+		show_chars_left(total_message_chars_left, 'msg_text', 'msg_text_count');	
+	}
+} 
+
+new Form.Element.Observer('msg_from', 0.5, function(element, value) { 
+	show_message_chars_left();
+} );
+
+new Form.Element.Observer('msg_text', 0.5, function(element, value) { 
+	show_message_chars_left();
+} );
+
+
+</script>

@@ -1,0 +1,17 @@
+
+# following (loosely) http://weblog.rubyonrails.org/2009/8/30/upgrading-to-snow-leopard
+
+sudo launchctl unload -w /Library/LaunchDaemons/org.macports.mysql5.plist
+
+# then toss it
+
+install mysql-5.1.37-osx10.5-x86_64.pkg
+
+export ARCHFLAGS="-arch x86_64" ;sudo gem install --no-rdoc --no-ri -v=2.7 mysql -- --with-mysql-dir=/usr/local/mysql --with-mysql-config=/usr/local/mysql/bin/mysql_config
+
+mysqladmin create ocp_development -u root
+
+installed git package with the osx-installer
+http://code.google.com/p/git-osx-installer/
+
+sudo gem install -v=2.3.5 rails

@@ -1,0 +1,65 @@
+# setting up dynamic dns on the server
+
+# NOTE: the plan is to use a cell router to provide a more reliable internet connection for the server
+# SINCE there is no static IP address and vodacom uses NAT we cannot access the server remotely
+# it could still be used to provide a more reliable connection to use the SMS gateway service, but
+# since we have a cell modem and this has more sustainability, we will continue to use this.
+
+# setup the cell router
+�	Profile: OCPIP
+�	Dialup number: *99#
+�	PPP name: none
+�	APN: internet (all lowercase)
+�	IP: dynamic
+
+�	Wireless: DISABLED WIRELESS LAN
+�	Ocpip
+�	Disable ssid
+�	WPA2-PSK: WPAKEY
+�	TKIP
+�
+�	Password: PASSWORD!!
+
+We will see if we can get a static IP address which would be best
+
+# unfortunately cannot just use dyndns since the system uses NAT
+# setting up ddclient
+## sudo apt-get install ddclient
+
+# instead setup a reverse tunnel using our dreamhost virtual server
+# http://www.marksanborn.net/howto/bypass-firewall-and-nat-with-reverse-ssh-tunnel/
+# http://www.howtoforge.com/reverse-ssh-tunneling
+# I recommand to use ssh option -f to detach ssh process from the tty and -N to not execute any command over ssh (the connexion is just used for port forwarding)
+# Using key authentication (option -i) is quite better too and make this command to be run within a boot script (like /etc/rc.local) :
+
+# ubuntu test commands
+ssh -i /home/support/.ssh/id_dsa.pub -f -N -R 10002:localhost:22 opencellpager@opencellpager.org
+
+# server based commands
+ssh -i /home/opencellpager/.ssh/id_dsa.pub -f -N -R 10002:muhimbili:22 opencellpager@opencellpager.org
+
+
+ssh -i /home/support/.ssh/id_dsa.pub -f -N -R 10002:localhost:22 opencellpager@opencellpager.org
+
+# to setup the keys:
+
+# ssh - on workstation
+cat ~/.ssh/id_dsa.pub | ssh opencellpager@opencellpager.org "cat >> .ssh/authorized_keys2"
+
+# on dreamhost server
+cat ~/.ssh/id_dsa.pub | ssh opencellpager@localhost -p 10001 "cat >> .ssh/authorized_keys2"
+# note: had to update the settings of .ssh on the localhost in order to allow these changes
+# chmod u+rwx .ssh
+# reset
+# chmod 0600 .ssh
+
+
+# setting up the server
+
+
+# then to access the server
+ssh opencellpager@opencellpager.org
+ssh opencellpager@localhost -p 10002
+
+
+

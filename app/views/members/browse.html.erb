@@ -1,0 +1,44 @@
+<% set_page_title( "Browse Users" ) %>
+
+<h2><%= pluralize(@org.users.count, "User") %></h2>
+
+<% if @user.admin? %>
+  <p> <%= link_to_with_back("add new user", :controller=>'members', :action=>'new') %> </p>
+<% end %>
+
+  <fieldset>
+
+  	<label>Find user:</label>
+  	<%= text_field_tag(:find_member, nil, :size => 60, :focus => true) %> <img id="spinner" src="/images/loader2.gif" style="display: none;" />
+
+  	<div style='margin: 5px 1em 0px 0px;' id="results"></div>
+
+  	<%= observe_field :find_member,
+  		:frequency => 0.5,
+  		:update => 'results',
+  		:url => { :controller => 'members', :action => 'ajax_find_user', :back=>back_here },
+  		:with => "'search_for=' + escape(value)",
+  		:loading => "document.getElementById('spinner').style.display='inline'",
+  		:loaded => "document.getElementById('spinner').style.display='none'" %>
+  </fieldset>
+
+<table class="explore_list">
+  
+  <tr>
+    <th>name</th><th>phone</th><% if @user.admin? %><th>admin</th><% end %>
+  </tr>
+  
+<% @members.each do |user| %>
+  <tr>
+    <td><%= link_to( h(user.name), :controller=>'members', :action=>'show', :id=>user ) %> </td>
+    <td> <span class='<%= user.sms_validated? ? 'green' : 'red' %>'><%= h(user.phone.blank? ? "" : user.phone ) %> </span> </td>
+
+		<% if @user.admin? %>
+		  <td><%= link_to("delete", {:controller=>'members', :action=>'delete', :id=>user}, {:confirm => "Are you sure you want to delete this user?\nThis action cannot be undone.", :method => :delete})  %></td>
+		<% end %>
+		
+  </tr>
+<% end %>
+</table>
+
+<%= render(:partial => 'shared/paginate', :locals => { :items=>@members }) %>

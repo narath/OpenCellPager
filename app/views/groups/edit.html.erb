@@ -1,0 +1,12 @@
+<% set_page_title( "Edit Group" ) %>
+
+<h1>Edit Group ''<%= h(@group.name) %>''</h1>
+
+<%= error_messages_for 'group' %>
+
+<fieldset>
+  <% form_for :group, :url  => {:controller=>'groups', :action => 'update', :id => @group, :back => @back} do |form| -%>
+    <%= render :partial => "form", :object => form %>
+    <%= submit_tag "Save" %> <%= cancel_link %>
+  <% end -%>
+</fieldset>

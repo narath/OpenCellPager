@@ -1,0 +1,20 @@
+<% msgs.each do |msg| %>
+<div class="msg_row">
+  <div class="msg_hdr">
+		<table class='display_list'>
+			<tr><td>To:</td><td> <%= h(msg.recipient_type) %> <%= h(msg.recipient.name) %></td></tr>
+			<tr><td>From:</td><td> <%= h(msg.from) %></td></tr>
+			<tr><td>Date:</td><td> <%= display_date(msg.created_at) %> </td></tr>
+			<tr><td>Status:</td><td> <%= display_sms_status(msg.status) %>  <%= link_to( "details", :controller=>'msgs', :action=>'show', :id=>msg ) %> </td></tr>
+		</table>
+  </div>
+  
+  <div class="msg_body">
+	   <%= h(msg.text) %>
+  </div>
+
+</div>
+<% end %>
+
+
+<%= render(:partial => 'shared/paginate', :locals => { :items=>msgs }) %>

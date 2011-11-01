@@ -1,0 +1,23 @@
+# using clickatell
+
+### Install the gem
+# if github is in sources can use
+sudo gem install clickatell
+
+# current version: 0.7.1
+
+### testing in irb
+require "clickatell"
+
+API_ID    = 'API_ID'
+username,password = ['USERACCT','PASSWORD']
+
+api = Clickatell::API.authenticate( API_ID, username, password )
+
+phone_no = '16175551111'
+phone,text = [phone_no,'hello from clickatell']
+message_id = api.send_message( phone, text )
+status_code = api.message_status( message_id )
+
+bal = api.account_balance
+api.ping(api.auth_options[:session_id])

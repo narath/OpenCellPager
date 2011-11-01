@@ -1,0 +1,29 @@
+<%= render(:partial => 'layouts/header') %>
+<body>
+
+  <div class="wrap">
+    <div class="wrap-inner">
+
+    <%= render(:partial => 'layouts/banner') %>
+    
+    <div class="main">
+
+		<%= render(:partial => 'orgs/topbar') %>
+
+      <div class="content">
+
+        <% if flash[:error] %> <div class="warning"><%= h(flash[:error]) %></div> <% end %>
+        <% if flash[:notice] %> <div class="notice"> <%= flash[:notice] %> </div> <% end %>
+        
+        <%= yield :layout %>
+      </div>
+
+    </div><!-- end main -->
+    
+    <%= render(:partial => "layouts/footer") %>
+    
+    </div>
+  </div>
+
+</body>
+</html>

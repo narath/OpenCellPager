@@ -1,0 +1,8 @@
+<% set_page_title( "#{h(@org.name)} Balance" ) %>
+<h1><%= h(@org.name) %> Balance</h1>
+
+<p>balance: <%= @org.balance%></p>
+
+<% unless @org.status_string.blank? %>
+<p>status: <%= @org.status_string %></p>
+<% end %>

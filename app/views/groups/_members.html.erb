@@ -1,0 +1,9 @@
+<% if members %>
+<ul>
+	<% members.each do |member| %>
+	<li>
+	  <%= link_to( "Add #{h(member.name)} to #{h(@group.name)}", :controller=>'groups', :action => 'add_member', :id => @group, :member_id=>member.id, :back=>@back ) %>
+	</li>
+	<% end %>
+</ul>
+<% end %>

@@ -1,0 +1,26 @@
+<fieldset>
+
+
+  <% form_tag({:controller=>'groups', :action => 'add_member', :id => group, :back=>back_here}, {}) do -%>
+
+    <p><%= select_tag(:member_id, options_for_select(@org.users.map {|user| [user.name, user.id.to_s]}) )%>   <%= submit_tag  "Add Member" %> </p>
+
+  <% end -%>
+  
+  <fieldset>
+
+  	<label>Find user:</label>
+  	<%= text_field_tag(:find_member, nil, :size => 60, :focus => true) %> <img id="spinner" src="/images/loader2.gif" style="display: none;" />
+
+  	<div style='margin: 5px 1em 0px 0px;' id="results"></div>
+
+  	<%= observe_field :find_member,
+  		:frequency => 0.5,
+  		:update => 'results',
+  		:url => { :controller => 'groups', :action => 'ajax_add_member', :id=>@group, :back=>back_here },
+  		:with => "'search_for=' + escape(value)", 
+  		:loading => "document.getElementById('spinner').style.display='inline'",
+  		:loaded => "document.getElementById('spinner').style.display='none'" %>
+  </fieldset>
+  
+</fieldset>

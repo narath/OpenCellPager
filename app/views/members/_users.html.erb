@@ -1,0 +1,9 @@
+<% if users %>
+<ul>
+	<% users.each do |user| %>
+	<li>
+	  <%= link_to( "#{h(user.name)}", :controller=>'members', :action => 'show', :id => user,  :back=>@back ) %>
+	</li>
+	<% end %>
+</ul>
+<% end %>

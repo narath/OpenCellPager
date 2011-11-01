@@ -1,0 +1,3 @@
+full name, phone, username, sms_validated, status, forward_id
+<% @members.each do |item| %><%=h escape_for_csv(item.name) %>, <%=h "\"#{item.phone}\"" %>, <%=h escape_for_csv(item.login_name) %>, <%=h item.sms_validated %>, <%=h item.status %>, <%= item.forward_id %>
+<% end %>

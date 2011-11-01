@@ -1,0 +1,27 @@
+
+  <h1>Sign in</h1>
+  <fieldset>
+    <h2>Returning members</h2>
+    <% form_tag do %>
+
+		<table class='form_fields'>
+			<tr>
+				<td>Login Name</td>
+				<td><%= text_field_tag :login_name, params[:login_name], :size => 28 %></td>
+			</tr>
+
+			<tr>
+				<td>Password</td>
+				<td><%= password_field_tag :password, params[:password], :size => 28 %></p> </td>
+			</tr>
+	
+			<tr>
+				<td><%= submit_tag "Sign in" %> </td>
+				<td>&nbsp; </td>
+			</tr>
+			
+			  
+			
+		</table> 
+    <% end %>
+  </fieldset> 

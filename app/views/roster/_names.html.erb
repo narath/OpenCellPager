@@ -1,0 +1,31 @@
+<% if all and all.size>0 %>
+<ul>
+	<% all.each do |addr| %>
+	<li>
+
+    <% reachable = Msg.resolve(addr).count %>
+
+	<% if (addr.kind_of?(Group)) %>
+          
+      <%= if (reachable>0)
+          link_to_function h(addr.name),"$('#{text_id}').value='#{addr.name}'"
+          end %>
+ 	  (<%= pluralize(addr.users.count, "member") %>)
+	<% else %>
+          <%= if (reachable>0)
+              link_to_function h(addr.name),"$('#{text_id}').value='#{addr.name}'"
+          else
+              h(addr.name)
+              end %>
+	<% end %>
+
+	<% if reachable > 0 %>
+	  ----&gt; <strong> <%= Msg.resolve(addr).map {|user| h(user.name) }.join(", ") %> </strong>
+	<% else %>
+	  - <span class='unreachable'>unreachable</span>
+	<% end %>
+
+	</li>
+	<% end %>
+</ul>
+<% end %>

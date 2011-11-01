@@ -1,0 +1,7 @@
+<% set_page_title( "Browse Pages Sent to User" ) %>
+
+<h2><%= pluralize(@member.paged_msgs.count, "Message") %></h2>
+
+<p class='hint'>Pages sent to your phone may include messages sent to another user but forwarded to you</p>
+
+<%= render :partial => "msgs/show_list", :locals => {:msgs=>@msgs} %>

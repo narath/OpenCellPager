@@ -1,0 +1,11 @@
+<h1>Editing router_rule</h1>
+
+<% form_for(@router_rule) do |f| %>
+  <%= render :partial => "form", :locals => {:f => f} %>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @router_rule %> |
+<%= link_to 'Back', router_rules_path %>

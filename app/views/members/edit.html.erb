@@ -1,0 +1,68 @@
+<% set_page_title( "Edit User" ) %>
+
+<h1>Edit User <%= h(@member.display_name) %></h1>
+
+<%= error_messages_for 'member' %>
+
+<fieldset>
+  <% form_for :member, :url  => {:controller=>'members', :action => 'update', :id => @member, :back => @back} do |form| -%>
+
+      <table class='form_fields'>
+
+        <tr>
+          <td><label>Login Name</label></td>
+          <td><%= form.text_field :login_name, :size => 20 %>
+            <p class='hint'>Name used to sign into the system.</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td><label>Display Name</label></td>
+          <td><%= form.text_field :name, :size => 60 %>
+            <p class='hint'>User's name as it is displayed to others.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><label>Phone</label></td>
+          <td>
+            <%= form.text_field :phone, :size => 20 %> (country code)-(area code)-(number)<BR>
+            e.g. 1-603-650-5000 (number in North America)<BR>
+            e.g. 255-766-823-823 (number in Tanzania)
+          </td>
+        </tr>
+        <%
+           # only administrators can see this section
+           # and administrators cannot remove their own administrative status (this would log them out of the admin interface
+           if @user.admin?
+
+               if @user.id==@member.id
+        %>
+                <tr>
+                  <td colspan=2>You are an administrator. You cannot remove your own administrative priviliges, only another
+                    administrator can.
+                  </td>
+                </tr>
+            <%
+               else
+            %>
+                <tr>
+                  <td><label>Is Administrator?</label></td>
+                  <td>
+                    <%= form.check_box :admin, {:onclick => "return confirm('Are you sure you want to change the administrative status of this user?')"} %>
+                  </td>
+                </tr>
+            <% end %>
+                <tr>
+                  <td><label>Send Morning Send Alive Message?</label></td>
+                  <td>
+                    <%= form.check_box :send_alive  %>
+                  </td>
+                </tr>
+         <% end %>
+      </table>
+
+      <p><%= submit_tag "Save" %>  <%= cancel_link %></p>
+
+  <% end -%>
+</fieldset>
+

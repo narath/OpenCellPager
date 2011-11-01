@@ -1,0 +1,29 @@
+<% set_page_title( "Browse Groups" ) %>
+
+<h2><%= pluralize(@org.groups.count, "Group") %></h2>
+
+<% if @user.admin? %>
+  <p> <%= link_to_with_back("add new group", :controller=>'groups', :action=>'new') %> </p>
+<% end %>
+
+<table class="explore_list">
+	
+	<tr>
+    <th>name</th><th>short name</th><th>users</th><% if @user.admin? %><th>admin</th><% end %>
+  </tr>
+
+<% @groups.each do |group| %>
+  <tr>
+    <td><%= link_to( h(group.name), :controller=>'groups', :action=>'show', :id=>group ) %> </td>
+    <td align="center"><%= link_to( h(group.short_name), :controller=>'groups', :action=>'show', :id=>group ) %> </td>
+    <td> <%= pluralize(group.users.count, "user") %> </td>
+
+		<% if @user.admin? %>
+		  <td><%= link_to("delete", {:controller=>'groups', :action=>'delete', :id=>group}, {:confirm => "Are you sure you want to delete this group? \nThis action cannot be undone.", :method => :delete})  %></td>
+		<% end %>
+		
+  </tr>
+<% end %>
+</table>
+
+<%= render(:partial => 'shared/paginate', :locals => { :items=>@groups }) %>
