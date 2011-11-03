@@ -5,23 +5,23 @@ default_run_options[:pty] = true
 
 set :user, 'opencellpager'
 set :application, 'ocp'
-set :repository,  "git@github.com:narath/lifeline.git"
+set :repository,  "git@github.com:narath/OpenCellPager.git"
 
 if ocp_server == "pilot"
-  set :domain, '41.188.151.65'
+  set :domain, 'pilot'
   set :deploy_to, "/var/www/#{application}"
   set :have_smsd_server, true
-elsif ocp_server == "linode"
-    set :domain, '96.126.109.47'
+elsif ocp_server == "mylinode"
+    set :domain, 'mylinode'
     set :deploy_to, "/var/www/#{application}"
     set :have_smsd_server, false
 elsif ocp_server == "pilotlocal"
-    set :domain, '192.168.10.207'
+    set :domain, 'pilotlocal'
     set :deploy_to, "/var/www/#{application}"
     set :have_smsd_server, true
-    set :config_dir, "../../config/production-mnh"
-elsif ocp_server == "blue"
-    set :domain, '192.168.1.203'
+    set :config_dir, "../../config/production-pilot"
+elsif ocp_server == "staging"
+    set :domain, 'staging'
     set :deploy_to, "/var/www/#{application}"
     set :have_smsd_server, true
 else

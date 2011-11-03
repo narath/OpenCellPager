@@ -207,8 +207,7 @@ class CronTask
   
 end
 
-ExceptionNotifier.exception_recipients = %w(narathc@gmail.com)
-# todo: add muhimbili support address as well
-ExceptionNotifier.sender_address = "ocp.support@softlight.net"
-ExceptionNotifier.email_prefix = "[OCP Muhimbili]"
+ExceptionNotifier.exception_recipients = %w(support@email.com)
+ExceptionNotifier.sender_address = "from.support@email.com"
+ExceptionNotifier.email_prefix = "[OCP]"
 
