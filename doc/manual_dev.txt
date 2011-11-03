@@ -1,4 +1,0 @@
-# Open Cell Pager Developers Manual
-
-This is the place to keep notes for developers of the Open Cell Pager system. These can be rough notes, which will
-be organized into a cohesive developers manual in the future.
