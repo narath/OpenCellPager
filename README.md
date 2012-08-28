@@ -4,6 +4,8 @@ OpenCellPager is a new paging system that utilizes cellphone SMS text messaging 
 
 For more, go to http://www.opencellpager.org
 
+Version 0.1.1
+
 Installing
 ==========
 1. Clone this repository into a local directory.
