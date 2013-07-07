@@ -17,6 +17,3 @@ vendor/rails/*
 *.pid
 db/schema.rb
 config/deploy/private
-database.yml
-mailer.yml
-local_settings.yml

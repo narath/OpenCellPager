@@ -1,0 +1,7 @@
+---
+  :address: smtp.gmail.com
+  :port: 587
+  :user_name: ocp.support@softlight.net
+  :password:
+  :authentication: :plain
+  :enable_starttls_auto: true
