@@ -54,7 +54,7 @@ DEPENDENCIES
   clickatell
   delayed_job (~> 2.0.4)
   pg
-  rails (~> 2.3.16)
+  rails (~> 2.3.18)
   rest-client
   sqlite3-ruby
   tropo-webapi-ruby
