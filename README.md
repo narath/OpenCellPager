@@ -2,10 +2,6 @@ OpenCellPager
 =============
 OpenCellPager is a new paging system that utilizes cellphone SMS text messaging and a web browser. It is designed for use by hospitals and doctors in regions, such as Africa, where regular paging systems may not be available or are prohibitively expensive. There is already an impressive cellular phone infrastructure in Tanzania and many other parts of Africa, so this paging system could reach interns in the hospital and consultants at home without the need for any new expensive paging infrastructure. Since most doctors carry a cellphone, the technology infrastructure for a cellphone-based paging system already exists. OpenCellPager bridges the gap between this available infrastructure and the need for improved communications in healthcare settings.
 
-For more, go to http://www.opencellpager.org
-
-Version 0.1.1
-
 Installing
 ==========
 1. Clone this repository into a local directory.
@@ -19,8 +15,8 @@ Installing
 
 Dependencies
 ============
-Rails 2.3.11
-For Deploy: tested on Ubuntu, Nginx, Passenger, Mysql
+Rails 2.3.16
+For Deploy: tested on Ubuntu, Nginx, Passenger, Postgres|Mysql
 Backends (any of): test, tropo, kannel (handles serial/usb modems), clickatell
 
 Getting Help

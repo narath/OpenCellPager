@@ -45,8 +45,13 @@ class Outbound < ActiveRecord::Base
         when 'test'
           o.route(rule.backend)
         else
-          o.delay.route(rule.backend)
-          o.status_string = 'Submitted for processing'
+          if APP_SETTINGS[:use_delayed_job]
+            o.delay.route(rule.backend)
+            o.status_string = 'Submitted for processing'
+          else
+            o.route(rule.backend)
+            o.status_string = 'Routed immediately'
+          end
           o.save
       end
     end

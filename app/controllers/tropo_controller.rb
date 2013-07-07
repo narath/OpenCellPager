@@ -5,7 +5,6 @@ class TropoController < GatewayController
   # Process an SMS message request from Tropo
   def sms
     # receive message
-    Rails.logger.debug("TropoController::sms","params: #{params[:session].inspect}")
 
     # Generate Tropo response
     @tropo = Tropo::Generator.new
@@ -48,7 +47,7 @@ class TropoController < GatewayController
   def format_phone(p)
     # todo: check the org config to determine if assuming north america
     # make sure has +1 ONLY if 9 numbers only (else already has area code)
-    p = '+1'+p if p && p.length==9 && p[0..0]!='1'
+    p = '+1'+p if p && p.length==10 && p[0..0]!='1'
     p = '+'+p if p && p[0..0]!='+'
     p
   end

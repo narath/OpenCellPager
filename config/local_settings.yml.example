@@ -19,3 +19,6 @@
   :assume_north_america: true
 
 #:conversations_timeout: 30 # in minutes
+
+# Uncomment if using heroku
+# :use_delayed_job: false
